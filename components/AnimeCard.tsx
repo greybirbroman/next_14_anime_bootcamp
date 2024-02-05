@@ -1,27 +1,11 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { AnimeCardVariants } from '@/utils/motion';
 import { MotionDiv } from './MotionDiv';
+import { MAIN_IMAGE_URL } from '@/utils';
+import { AnimeCardProp } from '@/types';
 
-export interface AnimeProp {
-  id: string;
-  name: string;
-  russian: string;
-  image: {
-    original: string;
-  };
-  kind: string;
-  episodes: number;
-  episodes_aired: number;
-  score: string;
-}
-
-interface Prop {
-  anime: AnimeProp;
-  index: number;
-}
-
-function AnimeCard({ anime, index }: Prop) {
-  const MAIN_IMAGE_URL = 'https://shikimori.one/';
+function AnimeCard({ anime, index }: AnimeCardProp) {
 
   return (
     <MotionDiv
@@ -36,6 +20,7 @@ function AnimeCard({ anime, index }: Prop) {
       viewport={{ amount: 0.5 }}
       className="max-w-sm rounded relative w-full"
     >
+      <Link href={`/${anime.id}`}>
       <div className="relative w-full h-[37vh]">
         <Image
           src={`${MAIN_IMAGE_URL}${anime.image.original}`}
@@ -81,6 +66,7 @@ function AnimeCard({ anime, index }: Prop) {
           </div>
         </div>
       </div>
+      </Link>
     </MotionDiv>
   );
 }

@@ -1,0 +1,1 @@
+export const MAIN_IMAGE_URL = 'https://shikimori.one/';
