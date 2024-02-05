@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { PageTitle, PageWrapper } from '@/components';
 import { fetchAnimeById, fetchRelatedAnimeById } from './action';
 import { MAIN_IMAGE_URL } from '@/utils';
-import AnimeCard from '@/components/AnimeCard';
 
 type SinglePageProps = {
   params: {
@@ -10,7 +9,7 @@ type SinglePageProps = {
   };
 };
 
-const SinglePage = async ({ params: { id } }: SinglePageProps) => {
+async function SinglePage({ params: { id } }: SinglePageProps) {
   const anime = await fetchAnimeById(id);
 
   const related = await fetchRelatedAnimeById(id);
@@ -25,6 +24,7 @@ const SinglePage = async ({ params: { id } }: SinglePageProps) => {
             alt={anime.name}
             width={240}
             height={360}
+            quality={100}
             className="rounded-xl object-cover object-center w-full h-[33vh] md:h-[50vh]"
           />
           <aside className="md:hidden">stats</aside>
@@ -36,6 +36,6 @@ const SinglePage = async ({ params: { id } }: SinglePageProps) => {
       </section>
     </>
   );
-};
+}
 
 export default PageWrapper(SinglePage);

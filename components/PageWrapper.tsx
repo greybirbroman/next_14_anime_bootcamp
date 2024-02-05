@@ -9,6 +9,7 @@ const PageWrapper = (WrappedComponent: ComponentType<any>) => {
       </div>
     );
   };
+  return WrappedComponent;
 };
 
 export default PageWrapper;
