@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import { PageTitle, PageWrapper } from '@/components';
-import { fetchAnimeById, fetchRelatedAnimeById } from './action';
+import { fetchAnimeById, fetchSimilarAnimeById } from './action';
 import { MAIN_IMAGE_URL } from '@/utils';
+import { AnimeProp } from '@/types';
+import AnimeCard from '@/components/AnimeCard';
 
 type SinglePageProps = {
   params: {
@@ -10,9 +12,13 @@ type SinglePageProps = {
 };
 
 async function SinglePage({ params: { id } }: SinglePageProps) {
+
+
   const anime = await fetchAnimeById(id);
 
-  const related = await fetchRelatedAnimeById(id);
+  const similar = await fetchSimilarAnimeById(id);
+
+  console.log(similar.length)
 
   return (
     <>
@@ -32,7 +38,9 @@ async function SinglePage({ params: { id } }: SinglePageProps) {
         <p className="flex flex-[0.5] text-sm">{anime.description}</p>
       </section>
       <section className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
-        {related}
+        {similar.map((item: AnimeProp, index: number) => (
+          <AnimeCard key={item.id} anime={item} index={index} />
+        ))}
       </section>
     </>
   );
